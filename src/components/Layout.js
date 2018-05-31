@@ -1,6 +1,7 @@
 import React, { Fragment, Component } from 'react'
 import Header from './Header'
 import Sidebar from './Sidebar'
+import { Grid } from '@material-ui/core'
 
 class Layout extends Component {
   constructor(props) {
@@ -24,9 +25,9 @@ class Layout extends Component {
     return <Fragment>
       <Header onMenuClick={this._openSidebar}/>
       <Sidebar open={this.state.sidebar} onClose={this._closeSidebar}/>
-      <div>
+      <Grid container spacing={8} justify='center'>
          { this.props.children }
-      </div>
+      </Grid>
     </Fragment>
   }
 }

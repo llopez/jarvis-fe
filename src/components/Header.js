@@ -16,7 +16,7 @@ const styles = {
 }
 
 const Header = ({ classes, onMenuClick }) =>
-  <AppBar position="static">
+  <AppBar position="sticky">
     <Toolbar>
       <IconButton color="inherit" aria-label="Menu" onClick={onMenuClick}>
         <MenuIcon />
