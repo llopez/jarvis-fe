@@ -25,7 +25,7 @@ class Layout extends Component {
     return <Fragment>
       <Header onMenuClick={this._openSidebar}/>
       <Sidebar open={this.state.sidebar} onClose={this._closeSidebar}/>
-      <Grid container spacing={8} justify='center'>
+      <Grid container spacing={16} justify='center'>
          { this.props.children }
       </Grid>
     </Fragment>
