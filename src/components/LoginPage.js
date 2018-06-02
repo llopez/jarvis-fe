@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { TextField, Grid, Button, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import AccountIcon from '@material-ui/icons/AccountCircle'
+import { login } from '../actions'
 
 const styles = {
   accountIcon: {
@@ -27,15 +28,21 @@ const styles = {
 
 class LoginPage extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       email: '',
       password: ''
     }
+    this._login = this._login.bind(this)
   }
-  
+
+  _login() {
+    login(this.state.email, this.state.password)
+  }
+
   render() {
     const { classes } = this.props;
+
     return (
       <Grid container justify='center' alignItems='center' direction='column' className={classes.root}>
         <Grid item xs={12} className={classes.header}>
@@ -65,7 +72,7 @@ class LoginPage extends Component {
           </form>
         </Grid>
         <Grid item xs={12} className={classes.footer}>
-          <Button variant="raised" color="primary">Login</Button>
+          <Button variant="raised" color="primary" onClick={this._login}>Login</Button>
         </Grid>
       </Grid>
     );
