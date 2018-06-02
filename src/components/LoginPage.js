@@ -1,20 +1,26 @@
 import React, { Component } from 'react';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
+import { TextField, Grid, Button, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import AccountIcon from '@material-ui/icons/AccountCircle'
 
 const styles = {
   accountIcon: {
     color: '#3f51b5',
-    fontSize: 90
+    fontSize: 140
   },
-  grid: {
+  root: {
+    marginTop: 20
+  },
+  header: {
     textAlign: 'center'
   },
-  button: {
+  content: {
+    minWidth: 200
+  },
+  footer: {
+    marginTop: 30
+  },
+  textField: {
     marginTop: 20
   }
 }
@@ -31,12 +37,12 @@ class LoginPage extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <Grid container justify='center' alignItems='center'>
-        <Grid item xs={12} md={4} className={classes.grid}>
+      <Grid container justify='center' alignItems='center' direction='column' className={classes.root}>
+        <Grid item xs={12} className={classes.header}>
           <AccountIcon className={classes.accountIcon}/>
-          <Typography variant="title" color="inherit">
-            Login
-          </Typography>
+          <Typography variant='title'>Login</Typography>
+        </Grid>
+        <Grid item xs={12} className={classes.content}>
           <form noValidate>
             <TextField
               label="Email"
@@ -45,8 +51,8 @@ class LoginPage extends Component {
               margin="normal"
               autoComplete='off'
               fullWidth
+              className={classes.textField}
             />
-            <br/>
             <TextField
               label="Password"
               type='password'
@@ -54,11 +60,12 @@ class LoginPage extends Component {
               onChange={(e)=>{this.setState({...this.state, password: e.target.value})}}
               margin="normal"
               fullWidth
+              className={classes.textField}
             />
-            <Button variant="raised" color="primary" className={classes.button}>
-              Login
-            </Button>
           </form>
+        </Grid>
+        <Grid item xs={12} className={classes.footer}>
+          <Button variant="raised" color="primary">Login</Button>
         </Grid>
       </Grid>
     );
