@@ -3,6 +3,9 @@ import { Drawer, List, ListItem, ListItemText, ListItemIcon } from '@material-ui
 import HomeIcon from '@material-ui/icons/Home'
 import ListIcon from '@material-ui/icons/List'
 import { Link } from 'react-router-dom'
+import { logout } from '../actions'
+import store from '../store'
+import ExitIcon from '@material-ui/icons/ExitToApp'
 
 const Sidebar = (props) =>
   <Drawer open={props.open} onClose={props.onClose}>
@@ -28,6 +31,14 @@ const Sidebar = (props) =>
               <ListItemText primary="List" />
             </ListItem>
           </Link>
+          <ListItem button onClick={() => {
+            store.dispatch(logout())
+          }}>
+            <ListItemIcon>
+              <ExitIcon />
+            </ListItemIcon>
+            <ListItemText primary="Logout" />
+          </ListItem>
         </List>
       </div>
     </div>

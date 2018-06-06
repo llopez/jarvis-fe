@@ -1,43 +1,54 @@
-import React from 'react'
+import React, { Component } from 'react'
 import Layout from './Layout'
-import { Grid, List, ListItem, ListItemText,
-  ListItemSecondaryAction, IconButton, Switch } from '@material-ui/core'
-import ArrowIcon from '@material-ui/icons/KeyboardArrowRight'
-import LampIcon from '@material-ui/icons/WbIncandescent'
-import { Link } from 'react-router-dom'
+import { Grid, List } from '@material-ui/core'
+import store from '../store'
+import { fetchItems } from '../actions'
+import ListItem from './ListItem'
+import ListItemSwitch from './ListItemSwitch';
 
-const ListView = (props) =>
-  <Layout>
-    <Grid item xs={12} sm={8} md={6} lg={4}>
-      <List>
-        <ListItem key={123} dense>
-          <LampIcon />
-          <ListItemText
-            primary='Living Room Lamp'
-            secondary='ON'
-          />
-          <ListItemSecondaryAction>
-            <Switch />
-          </ListItemSecondaryAction>
-        </ListItem>
-        {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(value => (
-          <ListItem key={value} dense>
-            <LampIcon />
-            <ListItemText
-              primary={`Lamp #${value + 1}`}
-              secondary='ON'
-            />
-            <ListItemSecondaryAction>
-              <Link to={`/item/${value}`}>
-                <IconButton>
-                  <ArrowIcon />
-                </IconButton>
-              </Link>
-            </ListItemSecondaryAction>
-          </ListItem>
-        ))}
-      </List>
-    </Grid>
-  </Layout>
+class ListView extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      items: []
+    }
+  }
+
+  componentWillMount() {
+    this.unsubscribe = store.subscribe(() => {
+      this.setState({
+        ...this.state,
+        items: store.getState().items
+      })
+    })
+  }
+
+  componentDidMount() {
+    store.dispatch(fetchItems())
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  render() {
+    const items = this.state.items.map(item => {
+      if(item.pin.type === 'switch')
+        return <ListItemSwitch key={item.id} {...item} />
+      else
+        return <ListItem key={item.id} {...item} />
+    })
+
+    return (
+      <Layout>
+        <Grid item xs={12} sm={8} md={6} lg={4}>
+          <List>
+            {items}
+          </List>
+        </Grid>
+      </Layout>
+    )
+  }
+}
 
 export default ListView

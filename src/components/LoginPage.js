@@ -3,6 +3,8 @@ import { TextField, Grid, Button, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import AccountIcon from '@material-ui/icons/AccountCircle'
 import { login } from '../actions'
+import Notification from './Notification'
+import store from '../store'
 
 const styles = {
   accountIcon: {
@@ -37,7 +39,7 @@ class LoginPage extends Component {
   }
 
   _login() {
-    login(this.state.email, this.state.password)
+    store.dispatch(login(this.state.email, this.state.password))
   }
 
   render() {
@@ -74,6 +76,7 @@ class LoginPage extends Component {
         <Grid item xs={12} className={classes.footer}>
           <Button variant="raised" color="primary" onClick={this._login}>Login</Button>
         </Grid>
+        <Notification />
       </Grid>
     );
   }

@@ -1,17 +1,12 @@
 import React from 'react'
-import { AppBar, Toolbar, IconButton, Typography, Button } from '@material-ui/core'
+import { AppBar, Toolbar, IconButton, Typography } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import { withStyles } from '@material-ui/core/styles'
-
-import { Link } from 'react-router-dom'
 
 const styles = {
   title: {
     flex: 1,
     paddingLeft: 10
-  },
-  loginButton: {
-    color: 'white'
   }
 }
 
@@ -24,11 +19,6 @@ const Header = ({ classes, onMenuClick }) =>
       <Typography variant="title" color="inherit" className={classes.title}>
         Jarvis
       </Typography>
-      <Link to='/login'>
-        <Button className={classes.loginButton}>
-          Login
-        </Button>
-      </Link>
     </Toolbar>
   </AppBar>
 
