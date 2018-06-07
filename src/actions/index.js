@@ -68,3 +68,25 @@ export const fetchItems = () => dispatch => {
     console.log(err)
   })
 }
+
+export const updateItem = (data) => dispatch => {
+  fetch(`http://${hostname}:${port}/things/${data.id}`, {
+    method: 'PATCH',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Token token='+ localStorage.AUTH_TOKEN
+    },
+    body: JSON.stringify(data)
+  }).then((res) => {
+    if(!res.ok)
+      throw Error(res.statusText)
+    return res;
+  }).then((res) => {
+    return res.json()
+  }).then((res) => {
+    dispatch({type: 'UPDATE_ITEM', payload: res})
+  }).catch((err) => {
+    console.log(err)
+  })
+}

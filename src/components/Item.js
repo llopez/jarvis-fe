@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Paper, Grid, Typography, List,
-  ListItem, ListItemText,
-  Switch, ListItemSecondaryAction, Button } from '@material-ui/core'
+  ListItem, ListItemText, ListItemSecondaryAction } from '@material-ui/core'
 import Layout from './Layout'
 import LampIcon from '@material-ui/icons/WbIncandescent'
 import Slider from '@material-ui/lab/Slider'
 import { withStyles } from '@material-ui/core/styles'
+import store from '../store'
+import { updateItem } from '../actions'
 
 const styles = {
   modeButton: {
@@ -14,70 +15,93 @@ const styles = {
   }
 }
 
-const Item = ({classes}) =>
-  <Layout>
-    <Grid item xs={12} sm={8} md={6} lg={4}>
-      <Grid container spacing={8}>
-        <Grid item xs={12} sm={12} md={12}>
-          <List>
-            <ListItem dense>
-              <LampIcon style={{fontSize: 50}}/>
-              <ListItemSecondaryAction>
-                <Typography variant='title'>Living Room Lamp</Typography>
-                </ListItemSecondaryAction>
-            </ListItem>
-          </List>
+class Item extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      name: 'Default Name'
+    }
+    this._updateState = this._updateState.bind(this)
+    this._updateItem = this._updateItem.bind(this)
+  }
+
+  componentWillMount() {
+    this.unsubscribe = store.subscribe(() => {
+      this.setState({
+        ...this.state,
+        ...store.getState().items.find((x) => x.id === this.props.match.params.id)
+      })
+    })
+  }
+
+  componentDidMount() {
+    this.setState({
+      ...this.state,
+      ...store.getState().items.find((x) => x.id === this.props.match.params.id)
+    })
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  _updateState(event, value) {
+    this.setState({
+      ...this.state,
+      state: {value: value}
+    })
+  }
+
+  _updateItem() {
+    store.dispatch(updateItem(this.state))
+  }
+
+  render() {
+    const classes = this.props.classes
+    return (
+      <Layout>
+        <Grid item xs={12} sm={8} md={6} lg={4}>
+          <Grid container spacing={8}>
+            <Grid item xs={12} sm={12} md={12}>
+              <List>
+                <ListItem dense>
+                  <LampIcon style={{fontSize: 50}}/>
+                  <ListItemSecondaryAction>
+                    <Typography variant='title'>{this.state.name}</Typography>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              </List>
+            </Grid>
+
+            <Grid item xs={12} sm={12} md={12}>
+              { 
+                this.state.pin && this.state.pin.type === 'dimmer' &&
+                <Paper>
+                  <List>
+                    <ListItem dense>
+                      <ListItemText
+                        primary='STATE'
+                      />
+                      <ListItemSecondaryAction style={{ width: '50%' }}>
+                        <Slider
+                          min={0}
+                          max={100}
+                          step={1}
+                          value={this.state.state.value}
+                          onChange={this._updateState}
+                          onMouseUp={this._updateItem}
+                        />
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                  </List>
+                </Paper>
+              }
+            </Grid>
+          </Grid>
         </Grid>
-        <Grid item xs={12} sm={12} md={12}>
-          <Paper>
-            <List>
-              <ListItem dense>
-                <ListItemText
-                  primary='STATE'
-                />
-                <ListItemSecondaryAction>
-                  <Switch />
-                </ListItemSecondaryAction>
-              </ListItem>
-            </List>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} sm={12} md={12}>
-          <Paper>
-            <List>
-              <ListItem dense>
-                <ListItemText
-                  primary='TEMP'
-                />
-                <ListItemSecondaryAction style={{ width: '50%' }}>
-                  <Slider
-                    min={17}
-                    max={30}
-                    value={24}
-                  />
-                </ListItemSecondaryAction>
-              </ListItem>
-            </List>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} sm={12} md={12}>
-          <Paper>
-            <List>
-              <ListItem dense>
-                <ListItemText
-                  primary='MODE'
-                />
-                <ListItemSecondaryAction>
-                  <Button variant='raised' size='small' className={classes.modeButton}>COLD</Button>
-                  <Button color='primary' variant='raised' size='small' className={classes.modeButton}>HEAT</Button>
-                  <Button color='secondary' variant='raised' size='small' className={classes.modeButton}>DRY</Button>
-                </ListItemSecondaryAction>
-              </ListItem>
-            </List>
-          </Paper>
-        </Grid>
-      </Grid>
-    </Grid>
-  </Layout>
+      </Layout>
+    )
+  }
+}
 
 export default withStyles(styles)(Item)
