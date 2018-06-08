@@ -5,6 +5,7 @@ import store from '../store'
 import { fetchItems } from '../actions'
 import ListItem from './ListItem'
 import ListItemSwitch from './ListItemSwitch';
+import ListItemDimmer from './ListItemDimmer';
 
 class ListView extends Component {
   constructor(props) {
@@ -33,10 +34,16 @@ class ListView extends Component {
 
   render() {
     const items = this.state.items.map(item => {
-      if(item.pin.type === 'switch')
-        return <ListItemSwitch key={item.id} {...item} />
-      else
-        return <ListItem key={item.id} {...item} />
+      switch (item.pin.type) {
+        case 'switch':
+          return <ListItemSwitch key={item.id} {...item} />
+        case 'aircon':
+          return <ListItemSwitch key={item.id} {...item} />
+        case 'dimmer':
+          return <ListItemDimmer key={item.id} {...item} />
+        default:
+          return <ListItem key={item.id} {...item} />
+      }
     })
 
     return (

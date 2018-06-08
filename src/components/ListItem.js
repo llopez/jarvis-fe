@@ -6,7 +6,7 @@ import LampIcon from '@material-ui/icons/WbIncandescent'
 import ArrowIcon from '@material-ui/icons/KeyboardArrowRight'
 
 const ListItem = ({id, name, state}) =>
-  <ListItem2 dense>
+  <ListItem2 dense divider>
     <LampIcon />
     <ListItemText
       primary={name}
