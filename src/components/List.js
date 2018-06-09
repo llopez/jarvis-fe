@@ -3,7 +3,6 @@ import Layout from './Layout'
 import { Grid, List } from '@material-ui/core'
 import store from '../store'
 import { fetchItems } from '../actions'
-import ListItem from './ListItem'
 import ListItemSwitch from './ListItemSwitch';
 import ListItemDimmer from './ListItemDimmer';
 
@@ -37,12 +36,10 @@ class ListView extends Component {
       switch (item.pin.type) {
         case 'switch':
           return <ListItemSwitch key={item.id} {...item} />
-        case 'aircon':
-          return <ListItemSwitch key={item.id} {...item} />
         case 'dimmer':
           return <ListItemDimmer key={item.id} {...item} />
         default:
-          return <ListItem key={item.id} {...item} />
+          return <ListItemSwitch key={item.id} {...item} />
       }
     })
 

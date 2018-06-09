@@ -34,7 +34,6 @@ const ListItemSwitch = (props) =>
     />
     <ListItemSecondaryAction>
       <Switch checked={props.state.value === 'on'} onChange={(event, value) => {
-        console.log(value)
         store.dispatch(updateItem({
           ...props,
           state: {value: value ? 'on':'off'}

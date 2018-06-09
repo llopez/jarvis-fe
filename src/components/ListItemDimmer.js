@@ -3,21 +3,8 @@ import { ListItem as ListItem2, ListItemText,
   ListItemSecondaryAction } from '@material-ui/core'
 import LampIcon from '@material-ui/icons/WbIncandescent'
 import Slider from '@material-ui/lab/Slider'
-import { withStyles } from '@material-ui/core/styles'
 import store from '../store'
 import { updateItem } from '../actions'
-
-const styles = {
-  thumb: {
-    height: 25,
-    width: 25
-  },
-  activated: {
-    height: 25,
-    width: 25
-  }
-}
-
 
 class ListItemDimmer extends Component {
   constructor(props) {
@@ -57,4 +44,4 @@ class ListItemDimmer extends Component {
   }
 }
 
-export default withStyles(styles)(ListItemDimmer)
+export default ListItemDimmer
