@@ -11,7 +11,6 @@ const ws = cable.subscriptions.create({ channel: 'ThingsChannel', user_id: Math.
     console.log('disconnected')
   },
   received: function ({user_token, type, payload}) {
-    console.log(user_token)
     if(localStorage.AUTH_TOKEN === user_token)
       return
 
