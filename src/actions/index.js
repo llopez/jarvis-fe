@@ -63,7 +63,7 @@ export const fetchItems = () => dispatch => {
   }).then((res) => {
     return res.json()
   }).then((res) => {
-    dispatch({type: 'FETCH_ITEMS', payload: res})
+    dispatch({type: 'ITEMS_RECEIVED', payload: res})
   }).catch((err) => {
     console.log(err)
   })
@@ -85,7 +85,7 @@ export const updateItem = (data) => dispatch => {
   }).then((res) => {
     return res.json()
   }).then((res) => {
-    dispatch({type: 'UPDATE_ITEM', payload: res})
+    dispatch({type: 'ITEM_UPDATED', payload: res})
   }).catch((err) => {
     console.log(err)
   })

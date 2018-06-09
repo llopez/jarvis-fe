@@ -14,6 +14,10 @@ class ListItemDimmer extends Component {
     }
   }
 
+  static getDerivedStateFromProps(props, state) {
+    return props
+  }
+
   render() {
     return (
       <ListItem2 dense divider>
