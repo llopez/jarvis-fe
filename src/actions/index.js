@@ -1,5 +1,5 @@
-const hostname = 'localhost'
-const port = 3001
+const hostname = process.env.REACT_APP_SERVER_IP
+const port = process.env.REACT_APP_SERVER_PORT
 
 export const login = (email, password) => (dispatch) => {
   fetch(`http://${hostname}:${port}/auth`, {

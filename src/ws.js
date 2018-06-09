@@ -13,8 +13,6 @@ const ws = cable.subscriptions.create({ channel: 'ThingsChannel', user_id: Math.
   received: function ({user_token, type, payload}) {
     if(localStorage.AUTH_TOKEN === user_token)
       return
-
-    console.log(user_token, type, payload)
     store.dispatch({
       type: type,
       payload: payload
