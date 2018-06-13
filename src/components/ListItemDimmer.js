@@ -32,13 +32,16 @@ class ListItemDimmer extends Component {
             max={100}
             step={1}
             value={this.state.state.value}
+            disabled={this.state.pin.node.status === 'offline'}
             onChange={(event, value) => {
+              if(this.state.pin.node.status==='offline') return
               this.setState({
                 ...this.state,
                 state: {value: value}
               })
             }}
             onDragEnd={()=>{
+              if(this.state.pin.node.status==='offline') return
               store.dispatch(updateItem(this.state))
             }}
           />
