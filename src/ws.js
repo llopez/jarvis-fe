@@ -1,7 +1,7 @@
 import ActionCable from 'actioncable';
 import store from './store';
 
-var cable = ActionCable.createConsumer(`ws://${process.env.REACT_APP_WEBSOCKET_IP}:3001/cable`)
+var cable = ActionCable.createConsumer(`${process.env.REACT_APP_WS_URL}/cable`)
 
 const ws = cable.subscriptions.create({ channel: 'ThingsChannel', user_id: Math.random().toString(36).substring(7) }, {
   connected: function () {

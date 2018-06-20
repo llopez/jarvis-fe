@@ -1,8 +1,7 @@
-const hostname = process.env.REACT_APP_SERVER_IP
-const port = process.env.REACT_APP_SERVER_PORT
+const SERVER_URL = process.env.REACT_APP_SERVER_URL
 
 export const login = (email, password) => (dispatch) => {
-  fetch(`http://${hostname}:${port}/auth`, {
+  fetch(`${SERVER_URL}/auth`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -49,7 +48,7 @@ export const logout = () => dispatch => {
 }
 
 export const fetchItems = () => dispatch => {
-  fetch(`http://${hostname}:${port}/things`, {
+  fetch(`${SERVER_URL}/things`, {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
@@ -70,7 +69,7 @@ export const fetchItems = () => dispatch => {
 }
 
 export const updateItem = (data) => dispatch => {
-  fetch(`http://${hostname}:${port}/things/${data.id}`, {
+  fetch(`${SERVER_URL}/things/${data.id}`, {
     method: 'PATCH',
     headers: {
       'Accept': 'application/json',
