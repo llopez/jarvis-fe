@@ -1,7 +1,5 @@
-const SERVER_URL = process.env.REACT_APP_SERVER_URL
-
 export const login = (email, password) => (dispatch) => {
-  fetch(`${SERVER_URL}/auth`, {
+  fetch(`${process.env.REACT_APP_SERVER_URL}/auth`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -48,7 +46,7 @@ export const logout = () => dispatch => {
 }
 
 export const fetchItems = () => dispatch => {
-  fetch(`${SERVER_URL}/things`, {
+  fetch(`${process.env.REACT_APP_SERVER_URL}/things`, {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
@@ -69,7 +67,7 @@ export const fetchItems = () => dispatch => {
 }
 
 export const updateItem = (data) => dispatch => {
-  fetch(`${SERVER_URL}/things/${data.id}`, {
+  fetch(`${process.env.REACT_APP_SERVER_URL}/things/${data.id}`, {
     method: 'PATCH',
     headers: {
       'Accept': 'application/json',

@@ -3,7 +3,7 @@ import store from './store';
 
 var cable = ActionCable.createConsumer(process.env.REACT_APP_WS_URL)
 
-const ws = cable.subscriptions.create({ channel: 'ThingsChannel', user_id: Math.random().toString(36).substring(7) }, {
+const ws = cable.subscriptions.create({ channel: 'ThingsChannel' }, {
   connected: function () {
     console.log('connected')
   },
